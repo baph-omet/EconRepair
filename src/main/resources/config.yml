@@ -1,0 +1,20 @@
+# EconRepair config
+#
+# Cost per durability point for repairs
+# cost: 1.0
+#
+# Cost modifier for enchanted items. If per_enchant is true, this will be compounded for each enchantment on the item.
+# enchanted_modifier: 2.0
+# per_enchant: false
+#
+# Cost modifiers for permissions groups. Must match a group name exactly.;
+# group_modifiers:
+#     - member: 0.9
+#     - vip: 0.75
+
+cost: 1.0
+enchant_modifier: 2.0
+per_enchant: false
+group_modifiers:
+    - member: 0.9
+    - vip: 0.75

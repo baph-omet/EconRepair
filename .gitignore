@@ -1,5 +1,7 @@
 # Compiled class file
 *.class
+*.jar
+*.project
 
 # Log file
 *.log

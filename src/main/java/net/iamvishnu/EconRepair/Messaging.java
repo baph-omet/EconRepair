@@ -17,4 +17,26 @@ public class Messaging {
 	public static String playersOnly() {
 		return ChatColor.RED + "Only Players can run this command. " + helpCommandMessage;
 	}
+	
+	public static String pluginInfo() {
+		return ChatColor.BLUE + "=====" + ChatColor.YELLOW + "EconRepair" + ChatColor.BLUE + "=====\nCreated by IAMVISHNU Media ( " 
+				+ EconRepair.plugin.getDescription().getWebsite() + " )\n" + "GitHub: https://github.com/iamvishnu-media/EconRepair\n"
+				+ "Version: " + EconRepair.plugin.getDescription().getVersion() + "See " + helpCommand + " for commands.";
+	}
+	
+	public static String invalidItem() {
+		return ChatColor.RED + "You cannot repair that item.";
+	}
+	
+	public static String noItemsFound() {
+		return ChatColor.RED + "Nothing found to repair.";
+	}
+	
+	public static String cannotAffort(double cost, double balance) {
+		return ChatColor.RED + "You cannot afford this repair. Cost: " + cost + " Your balance: " + balance;
+	}
+	
+	public static String repairedReceipt(double cost, String itemNames) {
+		return ChatColor.BLUE + "Paid " + ChatColor.YELLOW + cost + ChatColor.BLUE + " to repair: " + ChatColor.YELLOW + itemNames;
+	}
 }
