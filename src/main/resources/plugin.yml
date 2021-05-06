@@ -1,0 +1,6 @@
+name: EconRepair
+author: IAMVISHNU Media
+website: iamvishnu.net
+api-version: 1.16
+version: 0.0.1
+main: net.iamvishnu.EconRepair.EconRepair
