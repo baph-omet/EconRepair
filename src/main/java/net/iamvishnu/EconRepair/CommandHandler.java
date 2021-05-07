@@ -13,6 +13,35 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class CommandHandler implements CommandExecutor {
 
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		switch (label.toLowerCase()) {
+		case "repair":
+			Repair(sender, args);
+			break;
+		case "er":
+		case "ecr":
+		case "econrepair":
+			if (args.length > 0)
+				switch (args[0].toLowerCase()) {
+				case "reload":
+					Reload(sender);
+					break;
+				case "help":
+					Help(sender);
+					break;
+				default:
+					sender.sendMessage(Messaging.noSuchSubcommand(args[0]));
+					break;
+				}
+			else
+				sender.sendMessage(Messaging.pluginInfo());
+			break;
+		}
+
+		return true;
+	}
+
 	private double GetCost(Player player, ArrayList<ItemStack> items) {
 		double damage = 0D;
 		for (final ItemStack it : items) {
@@ -50,6 +79,9 @@ public class CommandHandler implements CommandExecutor {
 				name = it.getItemMeta().getDisplayName();
 			final ArrayList<ItemStack> single = new ArrayList<ItemStack>();
 			single.add(it);
+			final double cost = GetCost(player, single);
+			if (cost <= 0)
+				continue;
 			builder.append("\n" + ChatColor.BLUE + name + ": " + ChatColor.YELLOW + GetCost(player, single) + "");
 		}
 
@@ -73,35 +105,6 @@ public class CommandHandler implements CommandExecutor {
 
 	private void Help(CommandSender sender) {
 		sender.sendMessage(Messaging.helpInfo());
-	}
-
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		switch (label.toLowerCase()) {
-		case "repair":
-			Repair(sender, args);
-			break;
-		case "er":
-		case "ecr":
-		case "econrepair":
-			if (args.length > 0)
-				switch (args[0].toLowerCase()) {
-				case "reload":
-					Reload(sender);
-					break;
-				case "help":
-					Help(sender);
-					break;
-				default:
-					sender.sendMessage(Messaging.noSuchSubcommand(args[0]));
-					break;
-				}
-			else
-				sender.sendMessage(Messaging.pluginInfo());
-			break;
-		}
-
-		return true;
 	}
 
 	private void Quote(CommandSender sender) {
@@ -161,16 +164,15 @@ public class CommandHandler implements CommandExecutor {
 		boolean all = false;
 		if (args.length > 0) {
 			final String arg = args[0];
-			if (arg.equalsIgnoreCase("all")) {
-				perm = "econrepair.repair.all";
-				if (sender.hasPermission(perm))
-					all = true;
-				else {
-					sender.sendMessage(Messaging.noPerms(perm));
-					return;
-				}
-			} else {
+			if (!arg.equalsIgnoreCase("all")) {
 				sender.sendMessage(Messaging.noSuchSubcommand(arg));
+				return;
+			}
+			perm = "econrepair.repair.all";
+			if (sender.hasPermission(perm))
+				all = true;
+			else {
+				sender.sendMessage(Messaging.noPerms(perm));
 				return;
 			}
 		}
