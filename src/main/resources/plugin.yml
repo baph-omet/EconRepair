@@ -13,17 +13,22 @@ commands:
         useage: /econrepair (help | reload)
         aliases: [ecr, er]
     repair:
-        description: Repairs user's items for a cost
-        useage: /repair (all)
+        description: Repairs user's items for a cost or gets a quote
+        useage: /repair (all | quote)
         aliases: rpr
         permission: econrepair.repair
 permissions:
     econrepair.repair:
         description: Allows users to repair items in hand
-        default: false
+        default: op
     econrepair.repair.all:
         description: Allows users to repair all items in inventory
-        default: false
+        default: op
+        children:
+            econrepair.repair: true
+    econrepair.quote:
+        description: Allows users to check prices of repairs before committing.
+        default: op
         children:
             econrepair.repair: true
     econrepair.reload:

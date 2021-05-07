@@ -18,7 +18,7 @@ public class Settings {
 	public static double GroupModifier(String group) {
 		ConfigurationSection cs = plugin.getConfig().getConfigurationSection("group_modifiers");
 		double multiplier = 1.0;
-		if (cs.contains(group)) multiplier = cs.getDouble(group);
+		if (cs != null && cs.contains(group)) multiplier = cs.getDouble(group);
 		return multiplier;
 	}
 	
