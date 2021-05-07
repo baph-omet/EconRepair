@@ -2,6 +2,7 @@ package net.iamvishnu.EconRepair;
 
 import java.util.ArrayList;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,10 +24,17 @@ public class CommandHandler implements CommandExecutor {
 						case "reload":
 							Reload(sender);
 							break;
+						case "help":
+							Help(sender);
+							break;
+						default:
+							sender.sendMessage(Messaging.noSuchSubcommand(args[0]));
+							break;
 					}
 				} else {
 					sender.sendMessage(Messaging.pluginInfo());
 				}
+				break;
 		}
 		
 		return true;
@@ -107,9 +115,20 @@ public class CommandHandler implements CommandExecutor {
 	}
 	
 	private void Reload(CommandSender sender) {
+		String perm = "econrepair.reload";
+		if (!sender.hasPermission(perm)) {
+			sender.sendMessage(Messaging.noPerms(perm));
+			return;
+		}
 		
+		EconRepair.plugin.reloadConfig();
+		sender.sendMessage(ChatColor.BLUE + "EconRepair config reloaded.");
 	}
 	
+	private void Help(CommandSender sender) {
+		sender.sendMessage(Messaging.helpInfo());
+	}
+
 	private double GetCost(Player player, ArrayList<ItemStack> items) {
 		double damage = 0D;
 		for (ItemStack it : items) {

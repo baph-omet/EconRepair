@@ -21,6 +21,7 @@ public final class EconRepair extends JavaPlugin {
 		plugin = this;
 		saveDefaultConfig();
 		getConfig();
+		
 		if (!setupEconomy()) {
 			serverLog.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
@@ -33,7 +34,11 @@ public final class EconRepair extends JavaPlugin {
             return;
 		}
 		
-		//TODO: Register commands
+		CommandHandler commander = new CommandHandler();
+		getCommand("econrepair").setExecutor(commander);
+		getCommand("repair").setExecutor(commander);
+		
+		serverLog.info("EconRepair started successfully.");
 	}
 	
 	@Override
@@ -42,15 +47,16 @@ public final class EconRepair extends JavaPlugin {
 	}
 	
 	private boolean setupEconomy() {
-	        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-	            return false;
-	        }
+	        if (getServer().getPluginManager().getPlugin("Vault") == null) return false;
+	        
 	        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
 	        econ = rsp.getProvider();
 	        return econ != null;
 	}
 	
 	private boolean setupPermissions() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) return false;
+        
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
         perms = rsp.getProvider();
         return perms != null;

@@ -39,4 +39,9 @@ public class Messaging {
 	public static String repairedReceipt(double cost, String itemNames) {
 		return ChatColor.BLUE + "Paid " + ChatColor.YELLOW + cost + ChatColor.BLUE + " to repair: " + ChatColor.YELLOW + itemNames;
 	}
+	
+	public static String helpInfo() {
+		return ChatColor.BLUE + "/econrepair reload" + ChatColor.RESET + " - Reload configs.\n" +
+				ChatColor.BLUE + "/repair (all)" + ChatColor.RESET + " - Repair item in hand or all items in inventory.";
+	}
 }
