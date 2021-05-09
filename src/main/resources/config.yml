@@ -18,3 +18,6 @@ per_enchant: false
 group_modifiers:
     - member: 0.9
     - vip: 0.75
+durability_warning: true
+durability_message: "&6Your %i is about to break! Consider using &r/repair&6 to repair it."
+durability_threshold: 10
