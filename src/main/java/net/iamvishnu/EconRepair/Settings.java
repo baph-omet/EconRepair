@@ -11,6 +11,10 @@ public class Settings {
 	private final static FileConfiguration Config = EconRepair.plugin.getConfig();
 	private final static Logger serverLog = EconRepair.serverLog;
 
+	public static boolean Debug() {
+		return Config.getBoolean("debug");
+	}
+
 	public static double Cost() {
 		final double cost = Config.getDouble("cost", -1D);
 		if (cost < 0)
@@ -38,10 +42,10 @@ public class Settings {
 		return Config.getBoolean("durability_warning");
 	}
 
-	public static String WarningMessage() {
+	public static String WarningMessage(String itemName) {
 		String msg = Config.getString("durability_message");
 		if (msg != null)
-			msg = ChatColor.translateAlternateColorCodes('&', msg);
+			msg = ChatColor.translateAlternateColorCodes('&', msg.replace("%i", itemName));
 		return msg;
 	}
 

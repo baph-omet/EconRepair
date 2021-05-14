@@ -20,15 +20,19 @@ public class EventListener implements Listener {
 		final ItemStack item = e.getItem();
 		final Damageable d = (Damageable) item.getItemMeta();
 
-		final short max = item.getType().getMaxDurability();
-		final double currentDamagePct = d.getDamage() / max * 100d;
+		final double max = item.getType().getMaxDurability();
+		final double currentDamagePct = 100 - (100d * d.getDamage() / max);
 		if (currentDamagePct < threshold)
 			return;
 
-		final double nextDamagePct = (d.getDamage() - e.getDamage()) / max * 100d;
-		if (nextDamagePct <= threshold && nextDamagePct > 0d)
+		final double nextDamagePct = 100 - (100d * (d.getDamage() + e.getDamage()) / max);
+		if (nextDamagePct >= threshold && nextDamagePct > 0d)
 			return;
 
-		e.getPlayer().sendMessage(Settings.WarningMessage());
+		final String itemName = EconRepair.GetItemName(item);
+		if (Settings.Debug())
+			EconRepair.serverLog.info(String.format("Player: %s Item: %s current: %s next: %s", e.getPlayer().getName(),
+					itemName, currentDamagePct, nextDamagePct));
+		e.getPlayer().sendMessage(Settings.WarningMessage(itemName));
 	}
 }

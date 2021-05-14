@@ -2,6 +2,8 @@ package net.iamvishnu.EconRepair;
 
 import java.util.logging.Logger;
 
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -67,5 +69,12 @@ public final class EconRepair extends JavaPlugin {
 				.getRegistration(Permission.class);
 		perms = rsp.getProvider();
 		return perms != null;
+	}
+
+	public static String GetItemName(ItemStack item) {
+		final ItemMeta meta = item.getItemMeta();
+		if (meta.hasDisplayName())
+			return meta.getDisplayName();
+		return item.getType().name();
 	}
 }

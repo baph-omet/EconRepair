@@ -12,6 +12,8 @@
 #     - member: 0.9
 #     - vip: 0.75
 
+debug: true
+
 cost: 1.0
 enchant_modifier: 2.0
 per_enchant: false
