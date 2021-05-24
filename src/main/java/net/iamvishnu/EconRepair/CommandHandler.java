@@ -169,12 +169,11 @@ public class CommandHandler implements CommandExecutor {
 				return;
 			}
 			perm = "econrepair.repair.all";
-			if (sender.hasPermission(perm))
-				all = true;
-			else {
+			if (!sender.hasPermission(perm)) {
 				sender.sendMessage(Messaging.noPerms(perm));
 				return;
 			}
+			all = true;
 		}
 
 		// Make a list of items to be repaired.
@@ -218,14 +217,19 @@ public class CommandHandler implements CommandExecutor {
 		final ArrayList<String> itemNames = new ArrayList<String>();
 		for (final ItemStack is : items) {
 			final ItemMeta im = is.getItemMeta();
+			final Damageable d = (Damageable) im;
+
+			if (d.getDamage() == 0)
+				continue;
 			if (im.hasDisplayName())
 				itemNames.add(im.getDisplayName());
 			else
 				itemNames.add(is.getType().name());
-			((Damageable) im).setDamage(0);
+
+			d.setDamage(0);
 			is.setItemMeta(im);
 		}
 
-		return String.join(",", itemNames);
+		return String.join(", ", itemNames);
 	}
 }

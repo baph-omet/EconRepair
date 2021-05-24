@@ -3,7 +3,7 @@ description: A Bukkit plugin for detailed repair costs
 author: IAMVISHNU Media
 website: iamvishnu.net
 api-version: 1.16
-version: 0.0.1
+version: 1.0.0
 main: net.iamvishnu.EconRepair.EconRepair
 depend: [Vault]
 
